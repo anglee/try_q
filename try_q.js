@@ -38,7 +38,7 @@ var evaluate2 = function (input) {
     return "output from ev2";
 };
 
-evaluate1()// Q.fcall returns a Promise obj, since evaluate1 returns promise, this line could be just evaluate1()
+Q.fcall(evaluate1)// Q.fcall returns a Promise obj, since evaluate1 returns promise, this line could be just evaluate1()
     .delay(2000)
     .then(evaluate2);
 

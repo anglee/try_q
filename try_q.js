@@ -20,9 +20,34 @@ var utils = {
 
 var evaluate1 = function () {
     utils.log("ev1");
+    var ev1_step1 = function () {
+        utils.log("ev1_step1 started");
+        var deferred_step1 = Q.defer();
+        Q.delay(1000).then(function () {
+            utils.log("ev1_step1 finished");
+            deferred_step1.resolve();
+        });
+        utils.log("return ev1_step1");
+        return deferred_step1.promise;
+    };
+    var ev1_step2 = function () {
+        utils.log("ev1_step2 started");
+        var deferred_step2 = Q.defer();
+        Q.delay(1000).then(function () {
+            utils.log("ev1_step2 finished");
+            deferred_step2.resolve();
+        });
+        utils.log("return ev1_step2");
+        return deferred_step2.promise;
+    };
     var deferred = Q.defer();
-    Q.delay(2000).then(function () {
-        utils.log("async ev1");
+    Q.delay(1000)
+        .then(ev1_step1)
+        .delay(1000)
+        .then(ev1_step2)
+        .delay(1000)
+        .done(function () {
+        utils.log("done ev1");
         deferred.resolve("output from ev1");
     });
     utils.log("return ev1");
@@ -30,8 +55,8 @@ var evaluate1 = function () {
 };
 
 var evaluate2 = function (input) {
-    utils.log("ev2, input =", input);
-    Q.delay(2000).then(function () {
+    utils.log("ev2, input of ev2 =", input);
+    Q.delay(1000).then(function () {
         utils.log("async ev2");
     });
     utils.log("return ev2");
@@ -39,7 +64,7 @@ var evaluate2 = function (input) {
 };
 
 Q.fcall(evaluate1)// Q.fcall returns a Promise obj, since evaluate1 returns promise, this line could be just evaluate1()
-    .delay(2000)
+    .delay(1000)
     .then(evaluate2);
 
 

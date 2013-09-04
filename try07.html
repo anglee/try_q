@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>I promised I will try Q</title>
+    <script src="./lib/q/q-20130830/q.js"></script>
+    <script>
+        var step1 = function () {
+            console.log("This is step 1, args=", arguments);
+            return "ret 1";
+        };
+        var step2 = function () {
+            console.log("This is step 2, args=", arguments);
+            return "ret 2";
+        };
+
+        var deferred = Q.defer();
+        var promise0 = deferred.promise;
+        var promise1 = promise0.then(step1);
+        var promise2 = promise1.then(step2);
+
+        deferred.resolve("foo")
+
+    </script>
+</head>
+<body>
+Check console.
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>I promised I will try Q</title>
+    <script src="./lib/q/q-20130830/q.js"></script>
+    <script>
+        var step1 = function () {
+            console.log("This is step 1");
+            return "ret 1";
+        };
+        var stepA = function () {
+            console.log("This is step A, args=", arguments);
+            return "ret A";
+        };
+        var stepB = function () {
+            console.log("This is step B, args=", arguments);
+            return "ret B";
+        };
+        var finalStep = function (retA, retB) {
+            console.log("This is the final step, args=", arguments);
+        };
+        var promise1 = Q.fcall(step1);
+        var promiseA = promise1.then(stepA);
+        var promiseB = promise1.then(stepB);
+        var promiseAB = Q.all([promiseA, promiseB]);
+        promiseAB.spread(finalStep);
+    </script>
+</head>
+<body>
+Check console.
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>I promised I will try Q</title>
+    <script src="./lib/q/q-20130830/q.js"></script>
+    <script>
+        var step1 = function () {
+            console.log("This is step 1");
+            return "ret 1"
+        };
+        var stepA = function () {
+            console.log("This is step 2, args =", arguments);
+        };
+        var stepB = function () {
+            console.log("This is step 3, args =", arguments);
+        };
+
+        // then() can be used multiple times, it is like, for each then(), a callback is registered.
+        // and when the promise is fulfilled, all the registered callbacks are called
+        var promise1 = Q.fcall(step1);
+        var promiseA = promise1.then(stepA);
+        var promiseB = promise1.then(stepB);
+    </script>
+</head>
+<body>
+Check console.
+</body>
+</html>

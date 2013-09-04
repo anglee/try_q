@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>I promised I will try Q</title>
+    <script src="./lib/q/q-20130830/q.js"></script>
+    <script>
+        var step1 = function () {
+            console.log("This is step 1", arguments);
+            return "ret 1";
+        };
+        var step2 = function () {
+            console.log("This is step 2", arguments);
+            console.log("promise1.isFulfilled()", promise1.isFulfilled());
+            return "ret 2";
+        };
+
+        var promise1 = Q.fcall(step1);
+        var promise2 = promise1.then(step2);
+    </script>
+</head>
+<body>
+Check console.
+</body>
+</html>

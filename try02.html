@@ -5,16 +5,27 @@
     <script src="./lib/q/q-20130830/q.js"></script>
     <script>
         var step1 = function () {
-            console.log("This is step 1", arguments);
+            console.log("This is step 1, args=", arguments);
+            return "ret 1";
         };
         var step2 = function () {
-            console.log("This is step 2", arguments);
+            console.log("This is step 2, args=", arguments,
+                    ", at this moment promise1.isFulfilled()=", promise1.isFulfilled(),
+                    ", at this moment promise2.isFulfilled()=", promise2.isFulfilled()
+            );
+            return "ret 2";
+        };
+        var step3 = function () {
+            console.log("This is step 3, args=", arguments,
+                    ", at this moment promise1.isFulfilled()=", promise1.isFulfilled(),
+                    ", at this moment promise2.isFulfilled()=", promise2.isFulfilled()
+            );
+            return "ret 3";
         };
 
-        // the following 2 lines is just:
-        // Q.fcall(step1).then(step2)
-        var promise = Q.fcall(step1);
-        promise.then(step2);
+        var promise1 = Q.fcall(step1);
+        var promise2 = promise1.then(step2);  // promise2 will be fulfilled with the value returned by step1: "ret 1"
+        var promise3 = promise2.then(step3);  // promise3 will be fulfilled with the value returned by step2: "ret 2"
     </script>
 </head>
 <body>

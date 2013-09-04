@@ -15,7 +15,7 @@
             console.log("This is step 3, args =", arguments);
         };
 
-        // then() can be used multiple times, it is like, for each then(), a callback is registered.
+        // then() can be used multiple times. It's like, for each then(), a callback is registered.
         // and when the promise is fulfilled, all the registered callbacks are called
         var promise1 = Q.fcall(step1);
         var promiseA = promise1.then(stepA);

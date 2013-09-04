@@ -5,15 +5,18 @@
     <script src="./lib/q/q-20130830/q.js"></script>
     <script>
         var step1 = function () {
-            console.log("This is step 1", arguments);
-            return "ret 1";
+            console.log("This is step 1, args=", arguments);
+            // step1 now returns a promise (instead of a value).
+            // note promise1 won't be fulfilled until promise1_5 is fulfilled
+            var promise1_5 = Q.fcall(function () {
+                console.log("This is step 1.5, args=", arguments, ", at this moment promise1.isFulfilled()=", promise1.isFulfilled());
+                return "ret 1.5"
+            });
+            return promise1_5;
         };
         var step2 = function () {
-            console.log("This is step 2", arguments);
-            console.log("promise1.isFulfilled()", promise1.isFulfilled());
-            return "ret 2";
+            console.log("This is step 2, args=", arguments);
         };
-
         var promise1 = Q.fcall(step1);
         var promise2 = promise1.then(step2);
     </script>
